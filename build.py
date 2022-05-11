@@ -95,7 +95,7 @@ EXAMPLE_BACKENDS = ['identity', 'square', 'repeat']
 CORE_BACKENDS = ['ensemble']
 NONCORE_BACKENDS = [
     'tensorflow1', 'tensorflow2', 'onnxruntime', 'python', 'dali', 'pytorch',
-    'openvino', 'fil', 'fastertransformer', 'tensorrt', 'armnn_tflite'
+    'openvino', 'fil', 'fastertransformer', 'tensorrt', 'armnn_tflite', 'tvm'
 ]
 EXAMPLE_REPOAGENTS = ['checksum']
 FLAGS = None
@@ -489,6 +489,8 @@ def backend_cmake_args(images, components, be, install_dir, library_paths,
         args = tensorrt_cmake_args()
     elif be in EXAMPLE_BACKENDS:
         args = []
+    elif be == 'tvm':
+        args = tvm_cmake_args(images, library_paths)
     else:
         fail('unknown backend {}'.format(be))
 
@@ -611,6 +613,11 @@ def onnxruntime_cmake_args(images, library_paths):
                         'TRITON_BUILD_ONNXRUNTIME_OPENVINO_VERSION', None,
                         TRITON_VERSION_MAP[FLAGS.version][3]))
 
+    return cargs
+
+
+def tvm_cmake_args(images, library_paths):
+    cargs = []
     return cargs
 
 
@@ -1917,6 +1924,8 @@ if __name__ == '__main__':
         # If armnn_tflite backend, source from external repo for git clone
         if be == 'armnn_tflite':
             github_organization = 'https://gitlab.com/arm-research/smarter/'
+        elif be == 'tvm':
+            github_organization = 'https://gitlab.com/octoml/'
         else:
             github_organization = FLAGS.github_organization
 
