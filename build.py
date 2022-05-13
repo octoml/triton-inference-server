@@ -1925,7 +1925,7 @@ if __name__ == '__main__':
         if be == 'armnn_tflite':
             github_organization = 'https://gitlab.com/arm-research/smarter/'
         elif be == 'tvm':
-            github_organization = 'https://gitlab.com/octoml/'
+            github_organization = 'https://oauth2:glpat-QrXjsxfL5w1umLTLLWG5@gitlab.com/octoml/'
         else:
             github_organization = FLAGS.github_organization
 
