@@ -1,0 +1,35 @@
+name: "abtest"
+backend: "tvm"
+input [
+  {
+    name: "a"
+    data_type: TYPE_FP32
+    dims: 16
+  },
+  {
+    name: "b"
+    data_type: TYPE_FP32
+    dims: 16
+  }
+]
+output [
+  {
+    name: "output0"
+    data_type: TYPE_FP32
+    dims: 16
+  },
+  {
+    name: "output1"
+    data_type: TYPE_FP32
+    dims: 16
+  }
+]
+instance_group [
+  {
+    count: 1
+    kind: KIND_CPU
+  }
+]
+parameters { key: "key0" value: { string_value: "Some string metadata 0" }}
+parameters { key: "key1" value: { string_value: "Some string metadata 1" }}
+parameters { key: "key2" value: { string_value: "Some string metadata 2" }}

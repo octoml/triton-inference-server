@@ -1,0 +1,10 @@
+
+FROM tritonserver_builder_image AS build
+FROM tritonserver_buildbase
+COPY --from=build /tmp/tritonbuild /tmp/tritonbuild
+
+RUN mkdir -p /tmp/tritonbuild/install/third-party-src &&     (cd /tmp/tritonbuild/tritonserver/build &&      tar zcf /tmp/tritonbuild/install/third-party-src/src.tar.gz third-party-src)
+COPY --from=build /workspace/build/server/README.third-party-src /tmp/tritonbuild/install/third-party-src/README
+
+# Copy ONNX custom op library and model (needed for testing)
+RUN if [ -d /tmp/tritonbuild/onnxruntime ]; then       cp /tmp/tritonbuild/onnxruntime/install/test/libcustom_op_library.so /workspace/qa/L0_custom_ops/.;       cp /tmp/tritonbuild/onnxruntime/install/test/custom_op_test.onnx /workspace/qa/L0_custom_ops/.;     fi
