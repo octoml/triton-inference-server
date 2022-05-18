@@ -5,6 +5,8 @@ tag=r22.02
     # --backend=tensorflow1:$tag \
     # --backend=tensorflow2:$tag \
     # --backend=openvino:$tag \
+    # --backend=tensorrt:$tag \
+    # --backend=python:$tag \
     # --backend=dali:$tag \
     # --backend=fil:$tag \
 
@@ -32,7 +34,5 @@ tag=r22.02
     --repo-tag=backend:$tag \
     --repo-tag=thirdparty:$tag \
     --backend=ensemble \
-    --backend=tensorrt:$tag \
-    --backend=python:$tag \
     --backend=tvm:bob/build \
     --repoagent=checksum:$tag
